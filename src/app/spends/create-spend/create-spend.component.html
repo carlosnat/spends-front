@@ -1,0 +1,54 @@
+<div class="container is-fluid">
+  <div class="section card" style="margin-top:3rem">
+    <div class="columns">
+      <div class="column">
+
+        <form [formGroup]="spendForm">
+
+        <div class="field">
+          <label class="label">Autor del gasto</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="valor gastado" formControlName="author">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Categoria</label>
+          <div class="control">
+            <div class="select">
+              <select formControlName="category">
+                <option *ngFor="let category of spendsCategories" [value]="category.value">{{category.label}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Valor</label>
+          <div class="control">
+            <input class="input" type="number" placeholder="valor gastado" formControlName="amount">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Notas</label>
+          <div class="control">
+            <textarea class="textarea" placeholder="notas" formControlName="observation"></textarea>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <button class="button is-link" (click)="guardarGasto()">Guardar Gasto</button>
+          </div>
+        </div>
+
+      </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<ul>
+    <li *ngFor="let spend of spends | async">
+      {{ spend.amount }}
+    </li>
+  </ul>
