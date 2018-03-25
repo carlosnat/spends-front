@@ -1,0 +1,27 @@
+<div class="container is-fluid">
+  <div class="section card" style="margin-top:3rem">
+    <div class="columns">
+      <div class="column">
+        <span>Lista de gastos</span>
+        <table class="table is-fullwidth">
+          <thead>
+            <tr>
+              <th>Autor</th>
+              <th>Monto</th>
+              <th>Categoria</th>
+              <th>Fecha Registro</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let spend of spends | async">
+              <td> {{ spend.author }}</td>
+              <td> {{ spend.amount }}</td>
+              <td> {{ spend.category }}</td>
+              <td> {{ spend.created_at | date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

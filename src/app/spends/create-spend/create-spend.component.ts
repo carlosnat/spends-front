@@ -2,13 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-export interface Spend {
-  author: string;
-  category: string;
-  amount: number;
-  observation: string;
-}
+import { Spend } from '../spend';
 
 @Component({
   selector: 'app-create-spend',
@@ -18,7 +12,6 @@ export interface Spend {
 export class CreateSpendComponent implements OnInit {
 
   private spendsCollection: AngularFirestoreCollection<Spend>;
-  spends: Observable<any[]>;
   spendForm: FormGroup;
 
   spendsCategories = [
@@ -33,16 +26,15 @@ export class CreateSpendComponent implements OnInit {
 
   constructor(afs: AngularFirestore, private fb: FormBuilder) {
     this.spendsCollection = afs.collection<Spend>('spends');
-    this.spends = this.spendsCollection.valueChanges();
     this.createSpendForm();
   }
 
   createSpendForm() {
     this.spendForm = this.fb.group({
-      author: 'Carlos Natera',
-      category: this.spendsCategories[0].value ,
-      amount: 0,
-      observation: ''
+      author: ['', Validators.required],
+      category: [this.spendsCategories[0].value],
+      amount: [0, [Validators.min(1), Validators.required]],
+      observation: ['']
     });
   }
 
@@ -50,8 +42,9 @@ export class CreateSpendComponent implements OnInit {
   }
 
   guardarGasto() {
-    console.log(this.spendForm.value);
-    this.spendsCollection.add(this.spendForm.value);
+    const newSpend = this.spendForm.value;
+    newSpend.created_at = Date.now();
+    this.spendsCollection.add(newSpend);
   }
 
 }

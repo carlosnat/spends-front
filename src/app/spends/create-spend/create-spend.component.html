@@ -22,21 +22,24 @@
             </div>
           </div>
         </div>
+
         <div class="field">
           <label class="label">Valor</label>
           <div class="control">
             <input class="input" type="number" placeholder="valor gastado" formControlName="amount">
           </div>
         </div>
+
         <div class="field">
           <label class="label">Notas</label>
           <div class="control">
             <textarea class="textarea" placeholder="notas" formControlName="observation"></textarea>
           </div>
         </div>
+
         <div class="field">
           <div class="control">
-            <button class="button is-link" (click)="guardarGasto()">Guardar Gasto</button>
+            <button class="button is-link" (click)="guardarGasto()" [disabled]="spendForm.status === 'INVALID'">Guardar Gasto</button>
           </div>
         </div>
 
@@ -46,9 +49,3 @@
     </div>
   </div>
 </div>
-
-<ul>
-    <li *ngFor="let spend of spends | async">
-      {{ spend.amount }}
-    </li>
-  </ul>

@@ -7,24 +7,30 @@ import { CreateSpendComponent } from './spends/create-spend/create-spend.compone
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
+import { StatsModule } from './stats/stats.module';
+import { LoginComponent } from './login/login.component';
+import { MainAppModule } from './main-app/main-app.module';
 
 const routes: Routes = [
-  { path: 'spend', component: CreateSpendComponent },
-  { path: '', redirectTo: '/spend', pathMatch: 'full'}
+  { path: 'login', component: LoginComponent},
+  { path: '', redirectTo: '/login', pathMatch: 'full'},
+  { path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    CreateSpendComponent
+    CreateSpendComponent,
+    LoginComponent
   ],
   imports: [
+    MainAppModule,
+    StatsModule,
     ReactiveFormsModule,
     BrowserModule,
     RouterModule.forRoot(routes),
