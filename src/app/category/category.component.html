@@ -1,0 +1,46 @@
+<div class="container is-fluid">
+    <div class="section card" style="margin-top:3rem">
+      <div class="columns">
+        <div class="column">
+
+          <form [formGroup]="categoryForm" *ngIf="families">
+
+          <div class="field">
+            <label class="label">Seleecione Familia</label>
+            <div class="select">
+              <select formControlName="family" (change)="familySelected($event)">
+                <option>Seleccione una familia</option>
+                <option *ngFor="let family of families" [value]="family._id">{{ family.name }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Seleecione un grupo</label>
+            <div class="select">
+              <select formControlName="group">
+                <option>Seleccione un grupo</option>
+                <option *ngFor="let group of groupSelect.spendgroups" [value]="group.name">{{ group.name }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Nombre de categoria</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="valor gastado" formControlName="name">
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <button class="button is-link" (click)="saveCategory()" [disabled]="categoryForm.invalid">Crear categoria</button>
+            </div>
+          </div>
+
+        </form>
+
+        </div>
+      </div>
+    </div>
+  </div>

@@ -15,6 +15,10 @@ import { environment } from '../environments/environment';
 import { StatsModule } from './stats/stats.module';
 import { LoginComponent } from './login/login.component';
 import { MainAppModule } from './main-app/main-app.module';
+import { FamiliesComponent } from './families/families.component';
+import { HttpClientModule } from '@angular/common/http';
+import { GroupComponent } from './group/group.component';
+import { CategoryComponent } from './category/category.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -26,9 +30,13 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     CreateSpendComponent,
-    LoginComponent
+    LoginComponent,
+    FamiliesComponent,
+    GroupComponent,
+    CategoryComponent
   ],
   imports: [
+    HttpClientModule,
     MainAppModule,
     StatsModule,
     ReactiveFormsModule,

@@ -1,0 +1,26 @@
+<div class="container is-fluid">
+  <div class="section card" style="margin-top:3rem">
+    <div class="columns">
+      <div class="column">
+
+        <form [formGroup]="familyForm">
+
+        <div class="field">
+          <label class="label">Nombre de familia</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="valor gastado" formControlName="name">
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button class="button is-link" (click)="saveFamily()" [disabled]="familyForm.invalid">Crear Familia</button>
+          </div>
+        </div>
+
+      </form>
+
+      </div>
+    </div>
+  </div>
+</div>

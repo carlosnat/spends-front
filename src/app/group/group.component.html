@@ -1,0 +1,38 @@
+<div class="container is-fluid">
+  <div class="section card" style="margin-top:3rem">
+    <div class="columns">
+      <div class="column">
+
+        <form [formGroup]="groupForm">
+
+        <div class="field">
+          <label class="label">Seleecione Familia</label>
+          <div class="select">
+            <select formControlName="family">
+              <option>Seleccione una familia</option>
+              <option *ngFor="let family of families" [value]="family._id">{{ family.name }}</option>
+            </select>
+          </div>
+        </div>
+
+
+
+        <div class="field">
+          <label class="label">Nombre de grupo</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="valor gastado" formControlName="name">
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button class="button is-link" (click)="saveGroup()" [disabled]="groupForm.invalid">Crear Grupo</button>
+          </div>
+        </div>
+
+      </form>
+
+      </div>
+    </div>
+  </div>
+</div>
