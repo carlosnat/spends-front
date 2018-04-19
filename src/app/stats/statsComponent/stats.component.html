@@ -2,22 +2,37 @@
   <div class="section card" style="margin-top:3rem">
     <div class="columns">
       <div class="column">
+
+        <div class="field">
+          <label class="label">Seleecione Familia</label>
+          <div class="select">
+            <select formControlName="family" (change)="onFamilySelected($event)">
+              <option>Seleccione una familia</option>
+              <option *ngFor="let family of families" [value]="family._id">{{ family.name }}</option>
+            </select>
+          </div>
+        </div>
+
         <span>Lista de gastos</span>
         <table class="table is-fullwidth">
           <thead>
             <tr>
-              <th>Autor</th>
-              <th>Monto</th>
+              <th>Grupo</th>
               <th>Categoria</th>
+              <th>Monto</th>
               <th>Fecha Registro</th>
+              <th>Observación</th>
+              <th>Fecha de gasto</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let spend of spends | async">
-              <td> {{ spend.author }}</td>
-              <td> {{ spend.amount }}</td>
+            <tr *ngFor="let spend of familySelected?.spends">
+              <td> {{ spend.group }}</td>
               <td> {{ spend.category }}</td>
-              <td> {{ spend.created_at | date }}</td>
+              <td> {{ spend.amount }}</td>
+              <td> {{ spend.createdAt | date }}</td>
+              <td> {{ spend.observation }}</td>
+              <td> {{ spend.spendDate | date }}</td>
             </tr>
           </tbody>
         </table>

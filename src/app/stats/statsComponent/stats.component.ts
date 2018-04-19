@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Spend } from '../../spends/spend';
-import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-stats',
@@ -10,16 +9,22 @@ import { Observable } from 'rxjs/Observable';
 })
 export class StatsComponent implements OnInit {
 
-  private spendsCollection: AngularFirestoreCollection<Spend>;
-  spends: Observable<any[]>;
+  private families: any;
+  private familySelected: any;
 
-  constructor(afs: AngularFirestore) {
-    this.spendsCollection = afs.collection<Spend>('spends');
-    this.spends = this.spendsCollection.valueChanges();
-   }
+  constructor(private http: HttpClient) {
+  }
 
   ngOnInit() {
-    console.log(this.spends);
+    this.http.get('http://localhost:3000/family').subscribe( (data: any) => {
+      this.families = data.families;
+    });
+  }
+
+  onFamilySelected(event) {
+    this.familySelected = this.families.find( element => {
+      return element._id === event.target.value;
+    });
   }
 
 }

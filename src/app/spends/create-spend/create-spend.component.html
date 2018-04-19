@@ -6,32 +6,51 @@
         <form [formGroup]="spendForm">
 
         <div class="field">
-          <label class="label">Autor del gasto</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="valor gastado" formControlName="author">
+          <label class="label">Seleecione Familia</label>
+          <div class="select">
+            <select formControlName="family" (change)="familySelected($event)">
+              <option>Seleccione una familia</option>
+              <option *ngFor="let family of families" [value]="family._id">{{ family.name }}</option>
+            </select>
           </div>
         </div>
 
         <div class="field">
-          <label class="label">Categoria</label>
-          <div class="control">
-            <div class="select">
-              <select formControlName="category">
-                <option *ngFor="let category of spendsCategories" [value]="category.value">{{category.label}}</option>
-              </select>
-            </div>
+          <label class="label">Seleecione un grupo</label>
+          <div class="select">
+            <select formControlName="group" (change)="groupSelected($event)">
+              <option>Seleccione un grupo</option>
+              <option *ngFor="let group of groupSelect?.spendgroups" [value]="group.name">{{ group.name }}</option>
+            </select>
           </div>
         </div>
 
         <div class="field">
-          <label class="label">Valor</label>
+          <label class="label">Seleecione una categoria</label>
+          <div class="select">
+            <select formControlName="category">
+              <option>Selecciona una categoria</option>
+              <option *ngFor="let category of categorySelect" [value]="category.name">{{ category.name }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Monto</label>
           <div class="control">
             <input class="input" type="number" placeholder="valor gastado" formControlName="amount">
           </div>
         </div>
 
         <div class="field">
-          <label class="label">Notas</label>
+          <label class="label">Fecha del gasto</label>
+          <div class="control">
+            <input class="input" type="datetime-local" formControlName="spendDate">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Observación</label>
           <div class="control">
             <textarea class="textarea" placeholder="notas" formControlName="observation"></textarea>
           </div>
