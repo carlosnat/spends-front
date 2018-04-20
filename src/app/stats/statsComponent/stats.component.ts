@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Spend } from '../../spends/spend';
-import { HttpClient } from '@angular/common/http';
+import { SpendsService } from '../../services/spends.service';
 
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.css']
 })
+
 export class StatsComponent implements OnInit {
 
   private families: any;
   private familySelected: any;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private spendService: SpendsService) {}
 
   ngOnInit() {
-    this.http.get('http://localhost:3000/family').subscribe( (data: any) => {
+    this.spendService.getFamilies().subscribe( (data: any) => {
       this.families = data.families;
     });
   }

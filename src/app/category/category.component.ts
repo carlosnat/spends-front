@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { SpendsService } from '../services/spends.service';
 
 @Component({
   selector: 'app-category',
@@ -13,12 +13,13 @@ export class CategoryComponent implements OnInit {
   private categoryForm: FormGroup;
   private groupSelect: any = [];
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private fb: FormBuilder, private spendService: SpendsService) { }
 
   ngOnInit() {
-    this.http.get('http://localhost:3000/family').subscribe( (data: any) => {
+    this.spendService.getFamilies().subscribe( (data: any) => {
       this.families = data.families;
     });
+
     this.categoryForm = this.fb.group({
       family: ['', Validators.required],
       name: ['', Validators.required ],
@@ -34,9 +35,7 @@ export class CategoryComponent implements OnInit {
 
   saveCategory() {
     if (this.categoryForm.valid) {
-      const apiUrl = `http://localhost:3000/family/spendcategory/${this.categoryForm.get('family').value}`;
-      this.http.post(apiUrl, this.categoryForm.value).subscribe( res => {
-        console.log('res', res);
+      this.spendService.createCategory(this.categoryForm.get('family').value, this.categoryForm.value).subscribe( res => {
         this.categoryForm.reset();
       });
     }

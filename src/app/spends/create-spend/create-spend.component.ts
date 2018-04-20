@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Spend } from '../spend';
-import { HttpClient } from '@angular/common/http';
-
+import { SpendsService } from '../../services/spends.service';
 
 @Component({
   selector: 'app-create-spend',
@@ -16,8 +15,8 @@ export class CreateSpendComponent implements OnInit {
   private groupSelect: any;
   private categorySelect: any;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
-    this.http.get('http://localhost:3000/family').subscribe( (data: any) => {
+  constructor(private fb: FormBuilder, private spendService: SpendsService) {
+    this.spendService.getFamilies().subscribe( (data: any) => {
       this.families = data.families;
     });
     this.createSpendForm();
@@ -39,10 +38,8 @@ export class CreateSpendComponent implements OnInit {
 
   guardarGasto() {
     if (this.spendForm.valid) {
-      const apiUrl = `http://localhost:3000/family/spend/${this.spendForm.get('family').value}`;
-      this.http.post(apiUrl, this.spendForm.value).subscribe( res => {
+      this.spendService.createSpend(this.spendForm.get('family').value, this.spendForm.value).subscribe( res => {
         this.spendForm.reset();
-        console.log('res', res);
       });
     }
   }

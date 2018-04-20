@@ -19,6 +19,7 @@ import { FamiliesComponent } from './families/families.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GroupComponent } from './group/group.component';
 import { CategoryComponent } from './category/category.component';
+import { SpendsService } from './services/spends.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -47,7 +48,7 @@ const routes: Routes = [
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule // imports firebase/storage only needed for storage features
   ],
-  providers: [],
+  providers: [SpendsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

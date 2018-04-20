@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { SpendsService } from '../services/spends.service';
 
 @Component({
   selector: 'app-families',
@@ -11,7 +11,7 @@ export class FamiliesComponent implements OnInit {
 
   private familyForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private fb: FormBuilder, private spendService: SpendsService) { }
 
   ngOnInit() {
     this.familyForm = this.fb.group({
@@ -21,8 +21,7 @@ export class FamiliesComponent implements OnInit {
 
   saveFamily() {
     if (this.familyForm.valid) {
-      this.http.post('http://localhost:3000/family', this.familyForm.value).subscribe(res => {
-        console.log('res', res);
+      this.spendService.createFamily(this.familyForm.value).subscribe(res => {
         this.familyForm.reset();
       });
     }
